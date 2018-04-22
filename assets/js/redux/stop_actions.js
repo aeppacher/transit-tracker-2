@@ -18,3 +18,10 @@ export function setCurrentRouteStops(stop) {
 		payload: stop
 	}
 }
+
+export function setArrivals(stop) {
+	return {
+		type: 'SET_ARRIVALS',
+		payload: stop
+	}
+}

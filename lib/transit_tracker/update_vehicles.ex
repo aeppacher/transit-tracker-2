@@ -89,7 +89,7 @@ defmodule TransitTracker.UpdateVehicles do
       prediction_params = %Prediction{
 	route_mbta_id: route_mbta_id,
 	route_int_id: route_int_id,
-	stop_mbta_id: stop_mbta_id,
+	stop_mbta_id: stop.stop_id,
 	stop_int_id: stop_int_id,
 	vehicle_mbta_id: vehicle_mbta_id,
 	vehicle_int_id: vehicle_int_id,

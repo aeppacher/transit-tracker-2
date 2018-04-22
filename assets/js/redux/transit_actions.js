@@ -18,6 +18,22 @@ export function getCurrentUser(user_id){
 	}
 }
 
+export function getArrivals(stop_id) {
+	return (dispatch) => {
+		$.ajax("/api/predictions/stop/" + stop_id, {
+			method: "get",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: (response) => {
+				dispatch(StopActions.setArrivals(response.data));
+			},
+			error: (error) => {
+				console.log(error, "setStopData errors");
+			}
+		});
+	}
+}
+
 export function addFavorite(favorites, user_id) {
 	return (dispatch) => {
 		$.ajax("/api/users/" + user_id, {
@@ -57,6 +73,7 @@ export function getCurrentRouteStops(id){
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
 			success: (response) => {
+				console.log(response.data, "response");
 				dispatch(StopActions.setCurrentRouteStops(response.data));
 			},
 			error: (error) => {

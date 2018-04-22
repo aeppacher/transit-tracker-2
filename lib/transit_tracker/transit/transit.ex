@@ -356,7 +356,7 @@ defmodule TransitTracker.Transit do
 
   def list_predictions_by_stop_int_id(stop_int_id) do
     query = from p in Prediction,
-            where: ^stop_int_id == p.stop_int_id,
+            where: ^stop_int_id == p.stop_mbta_id,
             select: p
     Repo.all(query)
   end

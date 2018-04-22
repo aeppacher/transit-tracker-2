@@ -28,6 +28,10 @@ export default function RouteCard(params) {
     borderRadius: ".25em"
   };
 
+  if(route.name === "Mattapan Trolley"){
+    return null;
+  }
+
   return <Card body inverse style={cardStyle} className="text-center">
     <CardBody>
       <CardText style={cardTextStyle}>

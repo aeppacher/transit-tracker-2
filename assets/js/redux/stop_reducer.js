@@ -2,6 +2,7 @@ export default function stopReducer( state = {
 	allStops: [],
 	currentStop: [],
 	currentRouteStops: [],
+	currentArrivals: []
 }, action ) {
 	switch (action.type) {
 		case "SET_ALL_STOPS": {
@@ -20,6 +21,12 @@ export default function stopReducer( state = {
 			return {
 				...state,
 				currentRouteStops: action.payload
+			}
+		}
+		case "SET_ARRIVALS": {
+			return {
+				...state,
+				currentArrivals: action.payload
 			}
 		}
 		default: {

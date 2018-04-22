@@ -27,9 +27,8 @@ class Station extends React.Component {
 	}
 
 	getData(){
-		console.log(this.props, "matched");
 		this.props.getStopData(this.props.match.params.stop_id);
-		//this.props.getStopArrivals(this.props.match.params);
+		this.props.getArrivals(this.props.match.params.stop_id);
 	}
 
 	addFavorite(){
@@ -51,7 +50,11 @@ class Station extends React.Component {
 	}
 
 	render(){
+		console.log(this.props, "station");
 		let routes = this.props.currentStop.routes;
+		let arrivals = this.props.currentArrivals;
+
+		console.log(arrivals, "arrivals");
 
 		let routeCards = _.map(routes, (rr, index) => 
     <CardText key={index}>

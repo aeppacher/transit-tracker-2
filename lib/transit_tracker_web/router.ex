@@ -34,14 +34,13 @@ defmodule TransitTrackerWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", TransitTrackerWeb do
     pipe_through :api
+    get "/stops/:route_id", StopController, :get_stops_by_route
     resources "/users", UserController, except: [:new, :edit]
     resources "/routes", RouteController, except: [:new, :edit]
     resources "/stops", StopController, except: [:new, :edit]
     resources "/vehicles", VehicleController, except: [:new, :edit]
     resources "/predictions", PredictionController, except: [:new, :edit]
     get "/vehicles/route/:route_id", VehicleController, :route
-    get "/stops/:route_id", StopController, :get_stops_by_route
-    get "/stops/route/:route_id", StopController, :get_stops_by_route_id
     get "/stops/id/:stop_id", StopController, :get_stop_by_stop_id
     get "/routes/id/:route_id", RouteController, :get_route_by_route_id
     get "/stops/favorites/:user_id", StopController, :favorites
