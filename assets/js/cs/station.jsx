@@ -11,6 +11,7 @@ class Station extends React.Component {
 		super(props);
 
 		this.addFavorite = this.addFavorite.bind(this);
+		this.updateData = this.updateData.bind(this);
 		this.removeFavorite = this.removeFavorite.bind(this);
 		let user_id = window.user;
 
@@ -28,6 +29,12 @@ class Station extends React.Component {
 
 	getData(){
 		this.props.getStopData(this.props.match.params.stop_id);
+		this.props.getArrivals(this.props.match.params.stop_id);
+		setInterval(this.updateData, 60000);
+	}
+
+	updateData(){
+		console.log(this, "updated");
 		this.props.getArrivals(this.props.match.params.stop_id);
 	}
 
@@ -50,11 +57,14 @@ class Station extends React.Component {
 	}
 
 	render(){
-		console.log(this.props, "station");
 		let routes = this.props.currentStop.routes;
 		let arrivals = this.props.currentArrivals;
 
-		console.log(arrivals, "arrivals");
+		let arrivalCards = _.map(arrivals, (aa, index) =>
+			<CardBody key={index}>
+				<CardText>Vehicle #{aa.id} <br/> Direction: {aa.direction == 0 ? "Inbound" : "outbound"} <br/> Arrival Time: {aa.arrival_time.substring(11, 16)}</CardText>
+			</CardBody>
+		);
 
 		let routeCards = _.map(routes, (rr, index) => 
     <CardText key={index}>
@@ -80,6 +90,10 @@ class Station extends React.Component {
 			}
 		}
 
+		let d = new Date();
+		let hour = d.getHours();
+		let minutes = (d.getMinutes()<10?'0':'') + d.getMinutes();
+
 		console.log(this.props, "render props");
 		return (
 			<div>
@@ -97,21 +111,16 @@ class Station extends React.Component {
 			        {routeCards}
 				    </CardBody>
 			    	<CardTitle >
-		       		Direction A
+		       		Next arrival
 		       		<CardText>
-					    	No Predictions, this might be due to the MBTA Api having outages again
+					    	{arrivalCards.length === 0 ? "No arrivals returning from api" : arrivalCards }
 					    </CardText>
 		        </CardTitle>
-			      <CardBody>
-				    </CardBody>
-			    	<CardTitle >
-		       		Direction B
-		       		<CardText>
-					    	No Predictions, this might be due to the MBTA Api having outages again
-					    </CardText>
-		        </CardTitle>
-			      <CardBody>
-				    </CardBody>
+		        <CardText>
+					    This page auto updates every minute, no need to refresh last updated at {hour + ":" + minutes}
+					    <br/>
+				    	*Few arrivals may be the result of api outtages where arrival times are being displayed as null (which we are filtering out), the MBTA api has had outtages the past week and a half
+					  </CardText>
 				   </CardBody>
 			  </Card>
 			</div>
