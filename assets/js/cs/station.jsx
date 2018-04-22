@@ -62,7 +62,7 @@ class Station extends React.Component {
 
 		let arrivalCards = _.map(arrivals, (aa, index) =>
 			<CardBody key={index}>
-				<CardText>Vehicle #{aa.id} <br/> Direction: {aa.direction == 0 ? "Inbound" : "outbound"} <br/> Arrival Time: {aa.arrival_time.substring(11, 16)}</CardText>
+				<CardText>Vehicle #{aa.id} <br/> Direction: {aa.direction == 0 ? "Inbound" : "outbound"} <br/> Arrival Time: {new Date(aa.arrival_time).getHours() + ":" +(new Date(aa.arrival_time).getMinutes()<10?'0':'') + (new Date(aa.arrival_time).getMinutes())}</CardText>
 			</CardBody>
 		);
 
